@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="TreasureHunters"
+run/main_scene="res://Entities/Tilemap/TileMap.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
 config/icon="res://icon.svg"
 
@@ -25,6 +26,7 @@ window/stretch/aspect="keep_height"
 
 [editor]
 
+scene/scene_naming=1
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
