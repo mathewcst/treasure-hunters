@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkrxdmyp62rdr"]
+
+[ext_resource type="Script" path="res://Entities/Camera/Camera.gd" id="1_yxbso"]
+
+[node name="Camera2D" type="Camera2D"]
+current = true
+zoom = Vector2(0.8, 0.8)
+limit_left = 0
+limit_top = 0
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+script = ExtResource("1_yxbso")
