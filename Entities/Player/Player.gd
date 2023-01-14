@@ -27,6 +27,8 @@ func _ready() -> void:
 	EventBus.singal_player_ready(self)
 	EventBus.camera_changing_room.connect(_on_Camera_Chage_Start)
 	EventBus.camera_change_room_completed.connect(_on_Camera_Chage_Finished)
+	
+	InputHelper.device_changed.connect(_on_Input_Device_Changed)
 
 
 func _physics_process(delta: float) -> void:
@@ -120,3 +122,9 @@ func _on_Camera_Chage_Start(_new_room: Vector2) -> void:
 func _on_Camera_Chage_Finished(_new_room: Vector2) -> void:
 	await get_tree().create_timer(0.5).timeout
 	can_move = true
+
+
+func _on_Input_Device_Changed(device: String, device_index: int) -> void:
+	pass
+	# TODO: when using PS4 controller, prints both 'keyboard' and 'playstatin'
+	#print(device)
