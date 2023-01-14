@@ -144,7 +144,8 @@ script = ExtResource("1_ylrxq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource("SpriteFrames_23075")
-animation = &"FALL"
+animation = &"IDLE"
+playing = true
 offset = Vector2(0, -16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

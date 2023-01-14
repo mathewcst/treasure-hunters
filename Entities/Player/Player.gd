@@ -4,23 +4,21 @@ extends CharacterBody2D
 
 @export_group('Movement')
 @export var move_speed = 150.0
-@export var jump_velocity = -450.0
+@export var jump_velocity = -350.0
 
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
-
 var is_jumping: bool = false
 
 
 func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
+	move()
 	
 	animation()
-	
-	move()
 
 
 func _input(event: InputEvent) -> void:
@@ -63,6 +61,7 @@ func move() -> void:
 func animation() -> void:
 	var direction: float = get_input()
 	
+	# Movement Animations
 	if direction:
 		sprite.play('WALK')
 		sprite.flip_h = direction < 0
@@ -70,7 +69,7 @@ func animation() -> void:
 	else:
 		sprite.play('IDLE')
 	
-	
+	# Jumping Animations
 	if velocity.y < 0:
 		sprite.play('JUMP')
 	
