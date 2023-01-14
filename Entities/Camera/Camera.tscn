@@ -3,11 +3,21 @@
 [ext_resource type="Script" path="res://Entities/Camera/Camera.gd" id="1_yxbso"]
 
 [node name="Camera2D" type="Camera2D"]
+offset = Vector2(16, 0)
 current = true
 zoom = Vector2(0.8, 0.8)
+process_callback = 0
 limit_left = 0
 limit_top = 0
+limit_bottom = 360
+limit_smoothed = true
 position_smoothing_enabled = true
+rotation_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+drag_left_margin = 0.4
+drag_top_margin = 0.4
+drag_right_margin = 0.0
+drag_bottom_margin = 0.4
+editor_draw_drag_margin = true
 script = ExtResource("1_yxbso")

@@ -49,7 +49,7 @@ layer_1/tile_data = PackedInt32Array(786456, 65536, 1, 720920, 65536, 1, 655384,
 
 [node name="Player" parent="YSort" instance=ExtResource("4_aynni")]
 y_sort_enabled = true
-position = Vector2(16, 128)
+position = Vector2(48, 128)
 
 [node name="FadeArea" parent="YSort" node_paths=PackedStringArray("target") instance=ExtResource("6_hxr0n")]
 position = Vector2(64, 288)
