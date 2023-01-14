@@ -9,6 +9,26 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "Node2D",
+"class": &"BaseDialogueTestScene",
+"language": &"GDScript",
+"path": "res://addons/dialogue_manager/test_scene.gd"
+}, {
+"base": "RefCounted",
+"class": &"DialogueLine",
+"language": &"GDScript",
+"path": "res://addons/dialogue_manager/dialogue_line.gd"
+}, {
+"base": "Resource",
+"class": &"DialogueResource",
+"language": &"GDScript",
+"path": "res://addons/dialogue_manager/dialogue_resource.gd"
+}, {
+"base": "RefCounted",
+"class": &"DialogueResponse",
+"language": &"GDScript",
+"path": "res://addons/dialogue_manager/dialogue_response.gd"
+}, {
 "base": "Node",
 "class": &"Global",
 "language": &"GDScript",
@@ -20,6 +40,10 @@ _global_script_classes=[{
 "path": "res://Entities/Player/Player.gd"
 }]
 _global_script_class_icons={
+"BaseDialogueTestScene": "",
+"DialogueLine": "",
+"DialogueResource": "res://addons/dialogue_manager/assets/icon.svg",
+"DialogueResponse": "",
 "Global": "",
 "Player": ""
 }
@@ -34,6 +58,9 @@ config/icon="res://icon.svg"
 [autoload]
 
 EventBus="*res://Singletons/EventBus.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+InputHelper="*res://addons/input_helper/input_helper.gd"
+SoundManager="*res://addons/sound_manager/sound_manager.tscn"
 
 [display]
 
@@ -52,7 +79,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
 
 [input]
 

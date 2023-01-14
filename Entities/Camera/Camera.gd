@@ -9,7 +9,7 @@ func _ready() -> void:
 	EventBus.player_ready.connect(_on_Player_Ready)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var parent_screen: Vector2 = (player.global_position / Global.DOUBLE_SCREEN_SIZE).floor()
 	
 	if not parent_screen.is_equal_approx(cur_screen):
