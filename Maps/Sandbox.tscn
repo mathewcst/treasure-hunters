@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://d4enk4s7u1o2h"]
+[gd_scene load_steps=9 format=3 uid="uid://d4enk4s7u1o2h"]
 
 [ext_resource type="PackedScene" uid="uid://gcbtra5kdgod" path="res://Entities/Tilemap/TileMap.tscn" id="1_o6hlu"]
-[ext_resource type="Texture2D" uid="uid://dkfyjmuq740lh" path="res://Assets/Background/BG Image.png" id="1_tlhmj"]
-[ext_resource type="Texture2D" uid="uid://cuvpa0oijbnq8" path="res://Assets/Background/Small Cloud 2.png" id="2_r6vdg"]
 [ext_resource type="PackedScene" uid="uid://bkrxdmyp62rdr" path="res://Entities/Camera/Camera.tscn" id="3_gij5s"]
 [ext_resource type="PackedScene" uid="uid://bkuqjtwr6f8h0" path="res://Entities/Player/Player.tscn" id="4_aynni"]
 [ext_resource type="PackedScene" uid="uid://llnjh1drrbdl" path="res://Entities/FadeArea/FadeArea.tscn" id="6_hxr0n"]
+[ext_resource type="PackedScene" uid="uid://c31gisnlnpuue" path="res://Entities/ParallaxBG/ParallaxBackground.tscn" id="6_q4pe1"]
 [ext_resource type="Texture2D" uid="uid://b4i6eyer16hsu" path="res://Assets/Terrain/Terrain.png" id="7_321nm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_akeos"]
@@ -17,29 +16,10 @@ region = Rect2(32, 32, 32, 32)
 
 [node name="World" type="Node2D"]
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-
-[node name="BG" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
-offset_left = -16.0
-offset_top = -32.0
-offset_right = 856.0
-offset_bottom = 338.0
-pivot_offset = Vector2(681, 213)
-texture = ExtResource("1_tlhmj")
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_offset = Vector2(100, 0)
-
-[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer2"]
-offset_left = 18.0
-offset_top = 175.0
-offset_right = 151.0
-offset_bottom = 215.0
-texture = ExtResource("2_r6vdg")
+[node name="ParallaxBackground" parent="." instance=ExtResource("6_q4pe1")]
 
 [node name="Camera2D" parent="." instance=ExtResource("3_gij5s")]
+position = Vector2(320, 160)
 
 [node name="YSort" type="Node2D" parent="."]
 y_sort_enabled = true

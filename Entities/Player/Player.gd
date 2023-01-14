@@ -124,7 +124,7 @@ func _on_Camera_Chage_Finished(_new_room: Vector2) -> void:
 	can_move = true
 
 
-func _on_Input_Device_Changed(device: String, device_index: int) -> void:
+func _on_Input_Device_Changed(_device: String, _device_index: int) -> void:
 	pass
 	# TODO: when using PS4 controller, prints both 'keyboard' and 'playstatin'
 	#print(device)

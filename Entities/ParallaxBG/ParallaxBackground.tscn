@@ -1,0 +1,217 @@
+[gd_scene load_steps=17 format=3 uid="uid://c31gisnlnpuue"]
+
+[ext_resource type="Texture2D" uid="uid://buykuvm2fr8y" path="res://Assets/Background/Additional Sky.png" id="1_8grai"]
+[ext_resource type="Texture2D" uid="uid://dkfyjmuq740lh" path="res://Assets/Background/BG Image.png" id="2_8idd5"]
+[ext_resource type="Texture2D" uid="uid://bvt4ke7mkc0j1" path="res://Assets/Background/Additional Water.png" id="3_4jkbp"]
+[ext_resource type="Texture2D" uid="uid://bmjrucarxt8lc" path="res://Assets/Background/Small Cloud 1.png" id="4_k1mal"]
+[ext_resource type="Texture2D" uid="uid://dr3ix63o4oesr" path="res://Assets/Background/Water Reflect Big 01.png" id="4_p8akl"]
+[ext_resource type="Texture2D" uid="uid://csvlcmjqxlaf4" path="res://Assets/Background/Water Reflect Big 02.png" id="5_3al28"]
+[ext_resource type="Texture2D" uid="uid://covvsj3eol2hy" path="res://Assets/Background/Big Clouds.png" id="5_73u1w"]
+[ext_resource type="Texture2D" uid="uid://cqgcy7doki7ht" path="res://Assets/Background/Water Reflect Big 03.png" id="6_y6hgi"]
+[ext_resource type="Texture2D" uid="uid://ib3hvbgsn6k3" path="res://Assets/Background/Water Reflect Big 04.png" id="7_klt3k"]
+
+[sub_resource type="Animation" id="Animation_jjufj"]
+resource_name = "CLOUD_MOVEMENT"
+length = 15.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SmallCloudSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(108, 140), Vector2(-564, 140)]
+}
+
+[sub_resource type="Animation" id="Animation_oml27"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SmallCloudSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(108, 140)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t5wqa"]
+_data = {
+"CLOUD_MOVEMENT": SubResource("Animation_jjufj"),
+"RESET": SubResource("Animation_oml27")
+}
+
+[sub_resource type="Animation" id="Animation_lgbip"]
+resource_name = "MOVE_CLOUD"
+length = 30.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BigCloudSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(348, 147), Vector2(-324, 147)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BigCloudSprite2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1020, 147), Vector2(348, 147)]
+}
+
+[sub_resource type="Animation" id="Animation_f4tpp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BigCloudSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(348, 146)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BigCloudSprite2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1020, 146)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_40svp"]
+_data = {
+"MOVE_CLOUD": SubResource("Animation_lgbip"),
+"RESET": SubResource("Animation_f4tpp")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xaocd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_p8akl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3al28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_y6hgi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_klt3k")
+}],
+"loop": true,
+"name": &"DEFAULT",
+"speed": 10.0
+}]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+
+[node name="SkyBG" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(672, 0)
+
+[node name="Sky" type="Sprite2D" parent="SkyBG"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(352, 68)
+scale = Vector2(22, 4.25)
+texture = ExtResource("1_8grai")
+
+[node name="SkyFade" type="Sprite2D" parent="SkyBG"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(352, 200)
+scale = Vector2(22, 1)
+texture = ExtResource("2_8idd5")
+region_enabled = true
+region_rect = Rect2(1, 0, 128, 128)
+
+[node name="Water" type="Sprite2D" parent="SkyBG"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(352, 300)
+scale = Vector2(22, 2.75)
+texture = ExtResource("3_4jkbp")
+
+[node name="SmallClouds" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(672, 0)
+
+[node name="SmallCloudSprite" type="Sprite2D" parent="SmallClouds"]
+position = Vector2(108, 140)
+texture = ExtResource("4_k1mal")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SmallClouds"]
+autoplay = "CLOUD_MOVEMENT"
+libraries = {
+"": SubResource("AnimationLibrary_t5wqa")
+}
+
+[node name="BigCloud" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.5, 1)
+motion_mirroring = Vector2(672, 0)
+
+[node name="BigCloudSprite" type="Sprite2D" parent="BigCloud"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(348, 146)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("5_73u1w")
+region_enabled = true
+region_rect = Rect2(0, 0, 448, 101)
+region_filter_clip_enabled = true
+
+[node name="BigCloudSprite2" type="Sprite2D" parent="BigCloud"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(1020, 146)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("5_73u1w")
+region_enabled = true
+region_rect = Rect2(0, 0, 448, 101)
+region_filter_clip_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BigCloud"]
+autoplay = "MOVE_CLOUD"
+playback_speed = 0.5
+libraries = {
+"": SubResource("AnimationLibrary_40svp")
+}
+
+[node name="WaterReflection" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(672, 0)
+
+[node name="Reflection" type="AnimatedSprite2D" parent="WaterReflection"]
+position = Vector2(312, 236)
+scale = Vector2(1.7, 1.7)
+frames = SubResource("SpriteFrames_xaocd")
+animation = &"DEFAULT"
+playing = true
