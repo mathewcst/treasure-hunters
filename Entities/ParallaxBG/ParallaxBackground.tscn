@@ -206,11 +206,10 @@ libraries = {
 }
 
 [node name="WaterReflection" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0, 0)
 motion_mirroring = Vector2(672, 0)
 
 [node name="Reflection" type="AnimatedSprite2D" parent="WaterReflection"]
-position = Vector2(312, 236)
+position = Vector2(320, 236)
 scale = Vector2(1.7, 1.7)
 frames = SubResource("SpriteFrames_xaocd")
 animation = &"DEFAULT"
