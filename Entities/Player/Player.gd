@@ -14,17 +14,27 @@ extends CharacterBody2D
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+#--- MOVEMENT
+var can_move: bool = true
+
+
 #---- JUMP
 var is_grounded: bool = true
 var is_jumping: bool = false
 var has_presssed_jump: bool = false
 
+func _ready() -> void:
+	EventBus.singal_player_ready(self)
+	EventBus.camera_changing_room.connect(_on_Camera_Chage_Start)
+	EventBus.camera_change_room_completed.connect(_on_Camera_Chage_Finished)
+
 
 func _physics_process(delta: float) -> void:
-	apply_gravity(delta)
-	move()
-	
+	if can_move:
+		apply_gravity(delta)
+		move()
 	animation()
+	
 
 
 func _input(event: InputEvent) -> void:
@@ -83,17 +93,30 @@ func move() -> void:
 func animation() -> void:
 	var direction: float = get_input()
 	
-	# Movement Animations
-	if direction:
-		sprite.play('WALK')
-		sprite.flip_h = direction < 0
+	if not can_move:
+		sprite.stop()
 		
 	else:
-		sprite.play('IDLE')
-	
-	# Jumping Animations
-	if velocity.y < 0:
-		sprite.play('JUMP')
-	
-	if velocity.y > 0:
-		sprite.play('FALL')
+		# Movement Animations
+		if direction:
+			sprite.play('WALK')
+			sprite.flip_h = direction < 0
+			
+		else:
+			sprite.play('IDLE')
+		
+		# Jumping Animations
+		if velocity.y < 0:
+			sprite.play('JUMP')
+		
+		if velocity.y > 0:
+			sprite.play('FALL')
+
+
+func _on_Camera_Chage_Start(_new_room: Vector2) -> void:
+	can_move = false
+
+
+func _on_Camera_Chage_Finished(_new_room: Vector2) -> void:
+	await get_tree().create_timer(0.5).timeout
+	can_move = true

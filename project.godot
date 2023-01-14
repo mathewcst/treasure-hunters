@@ -9,12 +9,18 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "Node",
+"class": &"Global",
+"language": &"GDScript",
+"path": "res://Singletons/Global.gd"
+}, {
 "base": "CharacterBody2D",
 "class": &"Player",
 "language": &"GDScript",
 "path": "res://Entities/Player/Player.gd"
 }]
 _global_script_class_icons={
+"Global": "",
 "Player": ""
 }
 
@@ -24,6 +30,10 @@ config/name="TreasureHunters"
 run/main_scene="res://Maps/Sandbox.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+EventBus="*res://Singletons/EventBus.gd"
 
 [display]
 
