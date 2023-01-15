@@ -23,7 +23,7 @@ func update_screen(new_screen: Vector2) -> void:
 	is_changing_room = true
 	
 	cur_screen = new_screen
-	var new_camera_position = (cur_screen * Global.DOUBLE_SCREEN_SIZE) + Global.SCREEN_SIZE
+	var new_camera_position = (cur_screen * Global.DOUBLE_SCREEN_SIZE) + Global.SCREEN_SIZE	
 	
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(self, 'global_position', new_camera_position, 0.5)
@@ -32,6 +32,7 @@ func update_screen(new_screen: Vector2) -> void:
 
 func _on_Player_Ready(_player: CharacterBody2D) -> void:
 	player = _player
+
 
 func _on_Camera_Changed_Room() -> void:
 	EventBus.signal_camera_change_room_completed(cur_screen)
