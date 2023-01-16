@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://bkuqjtwr6f8h0"]
+[gd_scene load_steps=24 format=3 uid="uid://bkuqjtwr6f8h0"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_ylrxq"]
 [ext_resource type="Texture2D" uid="uid://c743gvur0es34" path="res://Assets/Player/Captain_Idle.png" id="2_1s8m6"]
 [ext_resource type="Texture2D" uid="uid://k6eigxridvwk" path="res://Assets/Player/Captain_Fall.png" id="2_h8bwc"]
 [ext_resource type="Texture2D" uid="uid://bpdl33ir67r5f" path="res://Assets/Player/Captain_Jump.png" id="3_3kqrb"]
 [ext_resource type="Texture2D" uid="uid://cjmonqh3id88g" path="res://Assets/Player/Captain_Run.png" id="3_5wa27"]
+[ext_resource type="PackedScene" uid="uid://c6ulrvs3tgtsw" path="res://Components/HealthComponent/HealthComponent.tscn" id="6_2q5v7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u7hjb"]
 atlas = ExtResource("2_h8bwc")
@@ -146,10 +147,10 @@ script = ExtResource("1_ylrxq")
 frames = SubResource("SpriteFrames_23075")
 animation = &"IDLE"
 playing = true
-offset = Vector2(0, -16)
+offset = Vector2(2, -16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, -13)
+position = Vector2(0, -13)
 shape = SubResource("CapsuleShape2D_8t246")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
@@ -159,3 +160,7 @@ one_shot = true
 [node name="JumpBuffer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_2q5v7")]
+
+[connection signal="on_death" from="HealthComponent" to="." method="_on_health_component_on_death"]

@@ -29,6 +29,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://addons/dialogue_manager/dialogue_response.gd"
 }, {
+"base": "Node2D",
+"class": &"HealthComponent",
+"language": &"GDScript",
+"path": "res://Components/HealthComponent/HealthComponent.gd"
+}, {
 "base": "CanvasLayer",
 "class": &"PankuConsole",
 "language": &"GDScript",
@@ -44,6 +49,7 @@ _global_script_class_icons={
 "DialogueLine": "",
 "DialogueResource": "res://addons/dialogue_manager/assets/icon.svg",
 "DialogueResponse": "",
+"HealthComponent": "",
 "PankuConsole": "",
 "Player": ""
 }

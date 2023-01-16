@@ -128,3 +128,7 @@ func _on_Input_Device_Changed(_device: String, _device_index: int) -> void:
 	pass
 	# TODO: when using PS4 controller, prints both 'keyboard' and 'playstatin'
 	#print(device)
+
+
+func _on_health_component_on_death() -> void:
+	get_tree().reload_current_scene()
