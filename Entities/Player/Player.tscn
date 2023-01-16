@@ -1,15 +1,85 @@
-[gd_scene load_steps=24 format=3 uid="uid://bkuqjtwr6f8h0"]
+[gd_scene load_steps=53 format=3 uid="uid://bkuqjtwr6f8h0"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_ylrxq"]
 [ext_resource type="Texture2D" uid="uid://c743gvur0es34" path="res://Assets/Player/Captain_Idle.png" id="2_1s8m6"]
+[ext_resource type="Texture2D" uid="uid://dygqitdy5aia2" path="res://Assets/Player/Captain_DeadGround.png" id="2_e3vy8"]
 [ext_resource type="Texture2D" uid="uid://k6eigxridvwk" path="res://Assets/Player/Captain_Fall.png" id="2_h8bwc"]
 [ext_resource type="Texture2D" uid="uid://bpdl33ir67r5f" path="res://Assets/Player/Captain_Jump.png" id="3_3kqrb"]
 [ext_resource type="Texture2D" uid="uid://cjmonqh3id88g" path="res://Assets/Player/Captain_Run.png" id="3_5wa27"]
+[ext_resource type="Texture2D" uid="uid://b47c3bu8f7qjb" path="res://Assets/Player/Captain_Ground.png" id="3_jd5nt"]
+[ext_resource type="Texture2D" uid="uid://ctbdwfl62u6si" path="res://Assets/Player/Captain_Hit.png" id="4_155co"]
 [ext_resource type="PackedScene" uid="uid://c6ulrvs3tgtsw" path="res://Components/HealthComponent/HealthComponent.tscn" id="6_2q5v7"]
+[ext_resource type="Texture2D" uid="uid://r8655vhvaok1" path="res://Assets/Player/Captain_DeadHit.png" id="6_nferr"]
+[ext_resource type="PackedScene" uid="uid://bqiaxei5ehecj" path="res://Components/Hurtbox/HurtboxComponent.tscn" id="7_in7lp"]
+[ext_resource type="PackedScene" uid="uid://hx21rpjci0si" path="res://Components/StateMachine/StateMachine.tscn" id="12_0c6de"]
+[ext_resource type="PackedScene" uid="uid://cucw63l07rkp2" path="res://Components/StateMachine/State.tscn" id="13_h2qxn"]
+[ext_resource type="Script" path="res://Entities/Player/States/StateMachine.gd" id="13_kyfbu"]
+[ext_resource type="Script" path="res://Entities/Player/States/Idle_State.gd" id="14_r6kp7"]
+[ext_resource type="Script" path="res://Entities/Player/States/MovementState.gd" id="15_rpdpq"]
+[ext_resource type="Script" path="res://Entities/Player/States/Jump_State.gd" id="16_0h5p8"]
+[ext_resource type="Script" path="res://Entities/Player/States/Hit_State.gd" id="18_lp6dc"]
+[ext_resource type="Script" path="res://Entities/Player/States/Fall_State.gd" id="18_na1is"]
+[ext_resource type="Script" path="res://Entities/Player/States/Coyote.gd" id="20_csexl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64cp2"]
+atlas = ExtResource("2_e3vy8")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pca2"]
+atlas = ExtResource("2_e3vy8")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8j33"]
+atlas = ExtResource("2_e3vy8")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1ygp"]
+atlas = ExtResource("2_e3vy8")
+region = Rect2(144, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u7hjb"]
 atlas = ExtResource("2_h8bwc")
 region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eie52"]
+atlas = ExtResource("3_jd5nt")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sb3w"]
+atlas = ExtResource("3_jd5nt")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85y2c"]
+atlas = ExtResource("4_155co")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03f7e"]
+atlas = ExtResource("4_155co")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvygw"]
+atlas = ExtResource("4_155co")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yab6"]
+atlas = ExtResource("4_155co")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynghl"]
+atlas = ExtResource("6_nferr")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4k01w"]
+atlas = ExtResource("6_nferr")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkk30"]
+atlas = ExtResource("6_nferr")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18sue"]
+atlas = ExtResource("6_nferr")
+region = Rect2(144, 0, 48, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xlvlw"]
 atlas = ExtResource("2_1s8m6")
@@ -71,10 +141,72 @@ region = Rect2(240, 0, 48, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_64cp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pca2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8j33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1ygp")
+}],
+"loop": true,
+"name": &"DEAD_GROUND",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_u7hjb")
 }],
 "loop": true,
 "name": &"FALL",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eie52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sb3w")
+}],
+"loop": false,
+"name": &"GROUND",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85y2c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03f7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvygw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5yab6")
+}],
+"loop": true,
+"name": &"HIT",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynghl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4k01w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkk30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18sue")
+}],
+"loop": true,
+"name": &"HIT_DEAD",
 "speed": 10.0
 }, {
 "frames": [{
@@ -107,7 +239,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_15n2a")
 }],
-"loop": true,
+"loop": false,
 "name": &"JUMP",
 "speed": 10.0
 }, {
@@ -139,6 +271,10 @@ animations = [{
 radius = 7.0
 height = 24.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yr8wq"]
+radius = 7.0
+height = 22.0
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_ylrxq")
@@ -153,14 +289,77 @@ offset = Vector2(2, -16)
 position = Vector2(0, -13)
 shape = SubResource("CapsuleShape2D_8t246")
 
-[node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_in7lp")]
+health_component = NodePath("../HealthComponent")
+
+[node name="HurtboxCollision" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, -13)
+shape = SubResource("CapsuleShape2D_yr8wq")
+debug_color = Color(0.984314, 0.00784314, 0.34902, 0.419608)
 
 [node name="JumpBuffer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
-[node name="HealthComponent" parent="." instance=ExtResource("6_2q5v7")]
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
+[node name="HealthComponent" parent="." instance=ExtResource("6_2q5v7")]
+max_health = 100
+current_health = 100
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("default_state") instance=ExtResource("12_0c6de")]
+script = ExtResource("13_kyfbu")
+default_state = NodePath("Idle")
+
+[node name="Idle" parent="StateMachine" node_paths=PackedStringArray("move_state", "jump_state") instance=ExtResource("13_h2qxn")]
+script = ExtResource("14_r6kp7")
+move_state = NodePath("../Movement")
+jump_state = NodePath("../Jump")
+animation_name = "IDLE"
+
+[node name="Movement" parent="StateMachine" node_paths=PackedStringArray("idle_state", "jump_state", "coyote_state") instance=ExtResource("13_h2qxn")]
+script = ExtResource("15_rpdpq")
+idle_state = NodePath("../Idle")
+jump_state = NodePath("../Jump")
+coyote_state = NodePath("../Coyote")
+animation_name = "WALK"
+
+[node name="Jump" parent="StateMachine" node_paths=PackedStringArray("fall_state") instance=ExtResource("13_h2qxn")]
+script = ExtResource("16_0h5p8")
+fall_state = NodePath("../Fall")
+animation_name = "JUMP"
+
+[node name="Fall" parent="StateMachine" node_paths=PackedStringArray("idle_state", "jump_state") instance=ExtResource("13_h2qxn")]
+script = ExtResource("18_na1is")
+idle_state = NodePath("../Idle")
+jump_state = NodePath("../Jump")
+animation_name = "FALL"
+
+[node name="Hit" parent="StateMachine" node_paths=PackedStringArray("idle_state") instance=ExtResource("13_h2qxn")]
+script = ExtResource("18_lp6dc")
+idle_state = NodePath("../Idle")
+animation_name = "HIT"
+
+[node name="Coyote" parent="StateMachine" node_paths=PackedStringArray("jump_state", "fall_state") instance=ExtResource("13_h2qxn")]
+script = ExtResource("20_csexl")
+jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+animation_name = "FALL"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -48.0
+offset_right = 20.0
+offset_bottom = -22.0
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "State"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="on_death" from="HealthComponent" to="." method="_on_health_component_on_death"]

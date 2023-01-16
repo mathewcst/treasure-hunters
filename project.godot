@@ -34,6 +34,16 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://Components/HealthComponent/HealthComponent.gd"
 }, {
+"base": "Area2D",
+"class": &"Hitbox",
+"language": &"GDScript",
+"path": "res://Components/Hitbox/HitboxComponent.gd"
+}, {
+"base": "Area2D",
+"class": &"Hurtbox",
+"language": &"GDScript",
+"path": "res://Components/Hurtbox/HurtboxComponent.gd"
+}, {
 "base": "CanvasLayer",
 "class": &"PankuConsole",
 "language": &"GDScript",
@@ -43,6 +53,16 @@ _global_script_classes=[{
 "class": &"Player",
 "language": &"GDScript",
 "path": "res://Entities/Player/Player.gd"
+}, {
+"base": "Node",
+"class": &"State",
+"language": &"GDScript",
+"path": "res://Components/StateMachine/State.gd"
+}, {
+"base": "Node",
+"class": &"StateMachine",
+"language": &"GDScript",
+"path": "res://Components/StateMachine/StateMachine.gd"
 }]
 _global_script_class_icons={
 "BaseDialogueTestScene": "",
@@ -50,8 +70,12 @@ _global_script_class_icons={
 "DialogueResource": "res://addons/dialogue_manager/assets/icon.svg",
 "DialogueResponse": "",
 "HealthComponent": "",
+"Hitbox": "",
+"Hurtbox": "",
 "PankuConsole": "",
-"Player": ""
+"Player": "",
+"State": "",
+"StateMachine": ""
 }
 
 [application]
@@ -63,20 +87,24 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameManager="*res://Singletons/GameManager.gd"
-EventBus="*res://Singletons/EventBus.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 InputHelper="*res://addons/input_helper/input_helper.gd"
+GameManager="*res://Singletons/GameManager.gd"
+EventBus="*res://Singletons/EventBus.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.tscn"
 Global="*res://Singletons/Global.gd"
 Console="*res://addons/panku_console/console.tscn"
+
+[debug]
+
+gdscript/warnings/redundant_await=0
 
 [display]
 
 window/size/viewport_width=320
 window/size/viewport_height=180
-window/size/window_width_override=1280
-window/size/window_height_override=720
+window/size/window_width_override=1920
+window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
 
 [editor]
@@ -119,6 +147,8 @@ toggle_console={
 
 2d_physics/layer_1="Terrain"
 2d_physics/layer_2="Player"
+2d_physics/layer_3="Hitbox"
+2d_physics/layer_4="Hurtbox"
 
 [panku]
 

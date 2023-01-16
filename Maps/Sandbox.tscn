@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://d4enk4s7u1o2h"]
+[gd_scene load_steps=10 format=3 uid="uid://d4enk4s7u1o2h"]
 
 [ext_resource type="PackedScene" uid="uid://gcbtra5kdgod" path="res://Entities/Tilemap/TileMap.tscn" id="1_o6hlu"]
 [ext_resource type="PackedScene" uid="uid://bkrxdmyp62rdr" path="res://Entities/Camera/Camera.tscn" id="3_gij5s"]
 [ext_resource type="PackedScene" uid="uid://bkuqjtwr6f8h0" path="res://Entities/Player/Player.tscn" id="4_aynni"]
 [ext_resource type="PackedScene" uid="uid://llnjh1drrbdl" path="res://Entities/FadeArea/FadeArea.tscn" id="6_hxr0n"]
 [ext_resource type="PackedScene" uid="uid://c31gisnlnpuue" path="res://Entities/ParallaxBG/ParallaxBackground.tscn" id="6_q4pe1"]
+[ext_resource type="PackedScene" uid="uid://c1ulgd7c2tsi8" path="res://Entities/Spikes/Spikes.tscn" id="7_6jjmv"]
 [ext_resource type="Texture2D" uid="uid://b4i6eyer16hsu" path="res://Assets/Terrain/Terrain.png" id="7_321nm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_akeos"]
@@ -18,8 +19,13 @@ region = Rect2(32, 32, 32, 32)
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("6_q4pe1")]
 
-[node name="Camera2D" parent="." instance=ExtResource("3_gij5s")]
+[node name="Camera2D" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_gij5s")]
 position = Vector2(320, 160)
+follow_target = NodePath("../YSort/Player")
+random_shake_strength = 5.0
+shake_decay_rate = 10.0
+noise_shake_speed = 50.0
+noise_shake_strength = 5.0
 
 [node name="YSort" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -44,3 +50,7 @@ shape = SubResource("RectangleShape2D_akeos")
 position = Vector2(-0.999997, 7.62939e-06)
 scale = Vector2(3.4375, 3.5)
 texture = SubResource("AtlasTexture_0rmfk")
+
+[node name="Spikes" parent="YSort" instance=ExtResource("7_6jjmv")]
+position = Vector2(240, 320)
+damage = 2
