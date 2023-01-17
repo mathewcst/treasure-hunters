@@ -10,9 +10,7 @@ func enter() -> void:
 	super.enter()
 	camera = GameManager.camera
 	
-	player.health_component.can_take_damage = false
-	player.hurtbox_collision.call_deferred('set_disabled', true)
-	player.invulnerability_timer.start()
+	player.make_invulnerable(true)
 	
 
 

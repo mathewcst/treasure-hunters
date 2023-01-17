@@ -95,6 +95,14 @@ func animation() -> void:
 	if not can_move:
 		sprite.stop()
 
+func make_invulnerable(yes: bool) -> void:
+	if yes:
+		health_component.can_take_damage = false
+		hurtbox_collision.call_deferred('set_disabled', true)
+		invulnerability_timer.start()
+	else:
+		health_component.can_take_damage = true
+		hurtbox_collision.call_deferred('set_disabled', false)
 
 
 #############
@@ -126,5 +134,4 @@ func _on_health_component_health_changed(new_health: int) -> void:
 
 
 func _on_invulnerability_timer_timeout() -> void:
-	health_component.can_take_damage = true
-	hurtbox_collision.call_deferred('set_disabled', false)
+	make_invulnerable(false)
