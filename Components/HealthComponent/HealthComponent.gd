@@ -11,13 +11,16 @@ signal on_death()
 	get:
 		return current_health
 
+@export var can_take_damage: bool = true
+
 
 func take_damage(amount: int) -> void:
-	current_health -= amount
-	emit_signal('health_changed', current_health)
+	if can_take_damage:
+		current_health -= amount
+		emit_signal('health_changed', current_health)
 
-	if current_health <= 0:
-		emit_signal('on_death')
+		if current_health <= 0:
+			emit_signal('on_death')
 
 
 func heal(amount: int) -> void:

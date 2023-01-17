@@ -305,9 +305,13 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [node name="HealthComponent" parent="." instance=ExtResource("6_2q5v7")]
-max_health = 100
-current_health = 100
+max_health = 5
+current_health = 5
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("default_state") instance=ExtResource("12_0c6de")]
 script = ExtResource("13_kyfbu")
@@ -361,5 +365,6 @@ text = "State"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="on_death" from="HealthComponent" to="." method="_on_health_component_on_death"]

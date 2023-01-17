@@ -21,11 +21,13 @@ extends CharacterBody2D
 
 #--- HEALTH
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var hurtbox_collision: CollisionShape2D = $HurtboxComponent/HurtboxCollision
 
 
-#--- JUMP
+#--- TIMERS
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var jump_buffer: Timer = $JumpBuffer
+@onready var invulnerability_timer: Timer = $InvulnerabilityTimer
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -118,6 +120,11 @@ func _on_health_component_on_death() -> void:
 
 
 func _on_health_component_health_changed(new_health: int) -> void:
-	if new_health < current_health:
+	if new_health < current_health and health_component.can_take_damage:
 		state_machine.change_state(hit_state)
 
+
+
+func _on_invulnerability_timer_timeout() -> void:
+	health_component.can_take_damage = true
+	hurtbox_collision.call_deferred('set_disabled', false)

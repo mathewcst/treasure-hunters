@@ -9,6 +9,11 @@ var camera: Camera2D
 func enter() -> void:
 	super.enter()
 	camera = GameManager.camera
+	
+	player.health_component.can_take_damage = false
+	player.hurtbox_collision.call_deferred('set_disabled', true)
+	player.invulnerability_timer.start()
+	
 
 
 func physics_process(_delta: float) -> State:
@@ -21,4 +26,5 @@ func physics_process(_delta: float) -> State:
 	await player.animation_player.animation_finished
 	
 	Engine.set_time_scale(1)
+	
 	return idle_state
