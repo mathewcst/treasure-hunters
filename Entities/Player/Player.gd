@@ -84,10 +84,6 @@ func get_input() -> float:
 	return Input.get_axis("move_left", "move_right")
 
 
-func jump() -> void:
-	state_machine.change_state(jump_state)
-
-
 func take_damage() -> void:
 	Engine.set_time_scale(0.2)
 	

@@ -5,6 +5,7 @@ extends State
 
 var player: Player
 
+
 func input(event: InputEvent) -> State:
 	if event.is_action_pressed('jump'):
 		if player.is_on_floor() or not player.coyote_timer.is_stopped():

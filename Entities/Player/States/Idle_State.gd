@@ -8,6 +8,7 @@ var player: Player
 func enter() -> void:
 	super.enter()
 	
+	# AS "default" state, player is not loaded here
 	if not player:
 		player = entity
 	
@@ -19,7 +20,6 @@ func input(event: InputEvent) -> State:
 		if player.is_on_floor() or not player.coyote_timer.is_stopped():
 			return jump_state
 		else:
-			player.jump_buffer.start()
 			return null
 	else:
 		return null
@@ -31,7 +31,6 @@ func physics_process(delta: float) -> State:
 	player.velocity.x = move_toward(player.velocity.x, 0, player.move_speed)
 	
 	var direction = player.get_input()
-	
 	if direction:
 		return move_state
 	else:

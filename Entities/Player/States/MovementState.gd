@@ -6,12 +6,12 @@ extends State
 
 var player: Player
 
+
 func input(event: InputEvent) -> State:
 	if event.is_action_pressed('jump'):
 		if player.is_on_floor() or not player.coyote_timer.is_stopped():
 			return jump_state
 		else:
-			player.jump_buffer.start()
 			return null
 	else:
 		return null
@@ -21,7 +21,7 @@ func physics_process(delta: float) -> State:
 	
 	var direction: float = player.get_input()
 	player.was_on_floor = player.is_on_floor()
-	
+
 	if not player.is_on_floor():
 		return coyote_state
 	
@@ -32,3 +32,4 @@ func physics_process(delta: float) -> State:
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, player.move_speed)
 		return idle_state
+	
