@@ -11,6 +11,7 @@ extends CharacterBody2D
 @onready var state_machine: StateMachine = $StateMachine
 @onready var jump_state: State = $StateMachine/Jump
 @onready var hit_state: State = $StateMachine/Hit
+@onready var frozen_state: State = $StateMachine/Frozen
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -52,7 +53,6 @@ func _ready() -> void:
 	EventBus.singal_player_ready(self)
 	
 	EventBus.camera_changing_room.connect(_on_Camera_Chage_Start)
-	EventBus.camera_change_room_completed.connect(_on_Camera_Chage_Finished)
 	
 	InputHelper.device_changed.connect(_on_Input_Device_Changed)
 	
@@ -109,12 +109,8 @@ func make_invulnerable(yes: bool) -> void:
 # SIGNALS
 ############
 func _on_Camera_Chage_Start(_new_room: Vector2) -> void:
-	can_move = false
-
-
-func _on_Camera_Chage_Finished(_new_room: Vector2) -> void:
-	await get_tree().create_timer(0.5).timeout
-	can_move = true
+	if state_machine.current_state != frozen_state:
+		state_machine.change_state(frozen_state)
 
 
 func _on_Input_Device_Changed(_device: String, _device_index: int) -> void:

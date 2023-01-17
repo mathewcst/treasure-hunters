@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bkuqjtwr6f8h0"]
+[gd_scene load_steps=54 format=3 uid="uid://bkuqjtwr6f8h0"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_ylrxq"]
 [ext_resource type="Texture2D" uid="uid://c743gvur0es34" path="res://Assets/Player/Captain_Idle.png" id="2_1s8m6"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://Entities/Player/States/Hit_State.gd" id="18_lp6dc"]
 [ext_resource type="Script" path="res://Entities/Player/States/Fall_State.gd" id="18_na1is"]
 [ext_resource type="Script" path="res://Entities/Player/States/Coyote.gd" id="20_csexl"]
+[ext_resource type="Script" path="res://Entities/Player/States/Frozen_State.gd" id="21_wxak3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_64cp2"]
 atlas = ExtResource("2_e3vy8")
@@ -351,6 +352,11 @@ script = ExtResource("20_csexl")
 jump_state = NodePath("../Jump")
 fall_state = NodePath("../Fall")
 animation_name = "FALL"
+
+[node name="Frozen" parent="StateMachine" node_paths=PackedStringArray("idle_state", "fall_state") instance=ExtResource("13_h2qxn")]
+script = ExtResource("21_wxak3")
+idle_state = NodePath("../Idle")
+fall_state = NodePath("../Fall")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -20.0

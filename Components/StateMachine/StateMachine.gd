@@ -4,6 +4,7 @@ extends Node
 @export var default_state: State = null
 
 var current_state: State = null
+var previous_state: State = null
 
 func init(entity: Node2D) -> void:
 	for state in get_children():
@@ -13,10 +14,12 @@ func init(entity: Node2D) -> void:
 
 
 func change_state(new_state: State) -> void:
+	previous_state = current_state
+	
 	if current_state:
 		#Exits can be synchronous, so await
 		await current_state.exit()
-
+	
 	current_state = new_state
 	current_state.enter()
 
