@@ -10,6 +10,7 @@ extends CharacterBody2D
 #--- STATE MACHINE
 @onready var state_machine: StateMachine = $StateMachine
 @onready var jump_state: State = $StateMachine/Jump
+@onready var hit_state: State = $StateMachine/Hit
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -84,17 +85,6 @@ func get_input() -> float:
 	return Input.get_axis("move_left", "move_right")
 
 
-func take_damage() -> void:
-	Engine.set_time_scale(0.2)
-	
-	GameManager.camera.shake()
-	
-	sprite.play('HIT')
-	await get_tree().create_timer(0.05).timeout
-	Engine.set_time_scale(1)
-	
-
-
 func animation() -> void:
 	# Flip sprite if moving left
 	sprite.flip_h = last_direction < 0
@@ -129,5 +119,5 @@ func _on_health_component_on_death() -> void:
 
 func _on_health_component_health_changed(new_health: int) -> void:
 	if new_health < current_health:
-		take_damage()
+		state_machine.change_state(hit_state)
 

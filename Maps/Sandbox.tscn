@@ -52,5 +52,5 @@ scale = Vector2(3.4375, 3.5)
 texture = SubResource("AtlasTexture_0rmfk")
 
 [node name="Spikes" parent="YSort" instance=ExtResource("7_6jjmv")]
-position = Vector2(240, 320)
+position = Vector2(312, 208)
 damage = 2

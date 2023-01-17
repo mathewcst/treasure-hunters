@@ -68,10 +68,10 @@ func update_screen(new_screen: Vector2) -> void:
 	tween.tween_callback(_on_Camera_Changed_Room)
 
 
-func shake() -> void:
+func shake(strength: float = 0) -> void:
 	EventBus.signal_camera_shake_started()
 	is_shaking = true
-	shake_strength = random_shake_strength
+	shake_strength = random_shake_strength if strength < 1 else strength
 
 
 ## Shake by noise
