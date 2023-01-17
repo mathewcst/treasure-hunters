@@ -78,6 +78,7 @@ func apply_gravity(delta: float) -> void:
 		velocity.y += gravity * delta
 	
 	# --- JUMP BUFFER
+	# BUG: transitioning from FALL to idle it does a mini-jump
 	if is_on_floor() and not jump_buffer.is_stopped():
 		jump_buffer.stop()
 		state_machine.change_state(jump_state)
@@ -109,8 +110,7 @@ func make_invulnerable(yes: bool) -> void:
 # SIGNALS
 ############
 func _on_Camera_Chage_Start(_new_room: Vector2) -> void:
-	if state_machine.current_state != frozen_state:
-		state_machine.change_state(frozen_state)
+	state_machine.change_state(frozen_state)
 
 
 func _on_Input_Device_Changed(_device: String, _device_index: int) -> void:
