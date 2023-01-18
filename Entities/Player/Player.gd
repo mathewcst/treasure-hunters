@@ -79,7 +79,7 @@ func apply_gravity(delta: float) -> void:
 	
 	# --- JUMP BUFFER
 	# BUG: transitioning from FALL to idle it does a mini-jump
-	if is_on_floor() and not jump_buffer.is_stopped():
+	if is_on_floor() and not jump_buffer.is_stopped() and coyote_timer.is_stopped():
 		jump_buffer.stop()
 		state_machine.change_state(jump_state)
 

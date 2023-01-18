@@ -1,10 +1,16 @@
 extends CharacterBody2D
+class_name Crabby
 
 
 var move_speed: float = 20
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+#--- STATE MACHINE
+@onready var state_machine: StateMachine = $StateMachine
+
 
 #--- RAYCAST
 @onready var raycast_right: RayCast2D = $RaycastRight
@@ -25,31 +31,17 @@ var is_idle: bool = false
 func _ready() -> void:
 	randomize()
 	direction = get_random_direction()
-	patrol_timer.start()
-
-
-func _physics_process(_delta: float) -> void:
-	sprite.flip_h = direction > 0
 	
-	if not is_idle:
-		patrol()
+	state_machine.init(self)
+
+
+func _physics_process(delta: float) -> void:
+	state_machine.physics_process(delta)
+
+	sprite.flip_h = direction > 0
 	
 	move_and_slide()
 
-
-func patrol() -> void:
-	can_move = is_on_platform()
-	sprite.play('RUN')
-	
-	velocity.x = direction * move_speed
-
-
-func idle() -> void:
-	is_idle = true
-	sprite.play('IDLE')
-	can_move = false
-	
-	velocity.x = 0
 
 
 func get_random_direction () -> int:
@@ -58,29 +50,3 @@ func get_random_direction () -> int:
 
 func change_direction() -> void:
 	direction *= -1
-
-
-func is_on_platform() -> bool:
-	# Check the foot
-	if raycast_foot_left.is_colliding() and raycast_foot_right.is_colliding():
-		return true
-	elif not raycast_foot_left.is_colliding() or not raycast_foot_right.is_colliding():
-		change_direction()
-		return true
-	else:
-		return false
-
-
-func _on_patrol_timer_timeout() -> void:
-	
-	idle_timer.start()
-	
-	idle()
-
-
-func _on_idle_timer_timeout() -> void:
-	is_idle = false
-	
-	patrol_timer.start()
-	patrol()
-	

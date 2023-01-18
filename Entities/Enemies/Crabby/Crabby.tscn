@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://mt727yyb8jm6"]
+[gd_scene load_steps=41 format=3 uid="uid://mt727yyb8jm6"]
 
 [ext_resource type="Script" path="res://Entities/Enemies/Crabby/Crabby.gd" id="1_gjdhr"]
 [ext_resource type="Texture2D" uid="uid://dchkbpjdlsyt7" path="res://Assets/Crabby/Crabby_Anticipation.png" id="2_uid4k"]
@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://3ihc1xiujdv" path="res://Assets/Crabby/Crabby_Run.png" id="5_dmb6f"]
 [ext_resource type="PackedScene" uid="uid://bqiaxei5ehecj" path="res://Components/Hurtbox/HurtboxComponent.tscn" id="6_xua1w"]
 [ext_resource type="PackedScene" uid="uid://c6ulrvs3tgtsw" path="res://Components/HealthComponent/HealthComponent.tscn" id="7_tdo1d"]
+[ext_resource type="PackedScene" uid="uid://hx21rpjci0si" path="res://Components/StateMachine/StateMachine.tscn" id="8_mmeq6"]
+[ext_resource type="PackedScene" uid="uid://cucw63l07rkp2" path="res://Components/StateMachine/State.tscn" id="9_l3xmy"]
+[ext_resource type="Script" path="res://Entities/Enemies/Crabby/States/Idle_State.gd" id="10_4b2e8"]
+[ext_resource type="Script" path="res://Entities/Enemies/Crabby/States/Patrol_State.gd" id="11_kuj5h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e1i2f"]
 atlas = ExtResource("2_uid4k")
@@ -192,10 +196,63 @@ height = 16.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_03n8h"]
 radius = 12.0
 
+[sub_resource type="Animation" id="Animation_srbdn"]
+resource_name = "IDLE"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"IDLE"]
+}
+
+[sub_resource type="Animation" id="Animation_1ihg2"]
+resource_name = "PATROL"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"RUN"]
+}
+
+[sub_resource type="Animation" id="Animation_80c71"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"IDLE"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8w3ys"]
+_data = {
+"IDLE": SubResource("Animation_srbdn"),
+"PATROL": SubResource("Animation_1ihg2"),
+"RESET": SubResource("Animation_80c71")
+}
+
 [node name="Crabby" type="CharacterBody2D"]
 script = ExtResource("1_gjdhr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
 frames = SubResource("SpriteFrames_dg3if")
 animation = &"IDLE"
 playing = true
@@ -217,12 +274,14 @@ debug_color = Color(0.960784, 0, 0.521569, 0.419608)
 
 [node name="RaycastLeft" type="RayCast2D" parent="."]
 position = Vector2(-8, -12)
-target_position = Vector2(-16, 0)
+target_position = Vector2(-32, 0)
+collision_mask = 2
 hit_from_inside = true
 
 [node name="RaycastRight" type="RayCast2D" parent="."]
 position = Vector2(8, -12)
-target_position = Vector2(16, 0)
+target_position = Vector2(32, 0)
+collision_mask = 2
 hit_from_inside = true
 
 [node name="FootRaycastLeft" type="RayCast2D" parent="."]
@@ -243,5 +302,20 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
-[connection signal="timeout" from="PatrolTimer" to="." method="_on_patrol_timer_timeout"]
-[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8w3ys")
+}
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("default_state") instance=ExtResource("8_mmeq6")]
+default_state = NodePath("Idle")
+
+[node name="Idle" parent="StateMachine" node_paths=PackedStringArray("patrol_state") instance=ExtResource("9_l3xmy")]
+script = ExtResource("10_4b2e8")
+patrol_state = NodePath("../Patrol")
+animation_name = "IDLE"
+
+[node name="Patrol" parent="StateMachine" node_paths=PackedStringArray("idle_state") instance=ExtResource("9_l3xmy")]
+script = ExtResource("11_kuj5h")
+idle_state = NodePath("../Idle")
+animation_name = "PATROL"

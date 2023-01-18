@@ -7,6 +7,7 @@ func _ready() -> void:
 	# Window Resize
 	get_tree().get_root().size_changed.connect(_on_Size_Changed)
 	
+	
 	EventBus.camera_ready.connect(_on_Camera_Ready)
 	EventBus.player_ready.connect(_on_Player_Ready)
 

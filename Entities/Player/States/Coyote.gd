@@ -7,7 +7,6 @@ var player: Player
 
 func enter() -> void:
 	player.coyote_timer.start()
-	player.velocity.y = 0
 
 func input(event: InputEvent) -> State:
 	if event.is_action_pressed('jump'):
@@ -16,13 +15,11 @@ func input(event: InputEvent) -> State:
 			return jump_state
 		else:
 			player.jump_buffer.start()
-			return null
+			return fall_state
 	else:
-		return null
+		return fall_state
 
-func physics_process(delta: float) -> State:
-	player.apply_gravity(delta)
-	
+func physics_process(_delta: float) -> State:
 	if player.coyote_timer.is_stopped():
 		return fall_state
 	else:
