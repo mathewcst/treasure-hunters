@@ -1,52 +1,54 @@
 extends CharacterBody2D
 class_name Crabby
 
-
-var move_speed: float = 20
-var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
+@export var move_speed: float = 20.0
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-#--- STATE MACHINE
-@onready var state_machine: StateMachine = $StateMachine
-
-
-#--- RAYCAST
-@onready var raycast_right: RayCast2D = $RaycastRight
-@onready var raycast_foot_right: RayCast2D = $FootRaycastRight
-
-@onready var raycast_left: RayCast2D = $RaycastLeft
-@onready var raycast_foot_left: RayCast2D = $FootRaycastLeft
-
-
-#--- TIMER
+#--- TIMERS
 @onready var patrol_timer: Timer = $PatrolTimer
 @onready var idle_timer: Timer = $IdleTimer
 
-var direction: int
-var can_move: bool = true
-var is_idle: bool = false
+# Flip to left
+var direction: int = -1
+var is_idle: bool = true
 
-func _ready() -> void:
-	randomize()
-	direction = get_random_direction()
+
+func _physics_process(_delta: float) -> void:
+	if not is_idle:
+		patrol()
+		move_and_slide()
+		
+	else:
+		idle()
 	
-	state_machine.init(self)
 
 
-func _physics_process(delta: float) -> void:
-	state_machine.physics_process(delta)
-
-	sprite.flip_h = direction > 0
-	
-	move_and_slide()
+func patrol() -> void:
+	animation_player.play('PATROL')
+	velocity.x = direction * move_speed
 
 
-
-func get_random_direction () -> int:
-	return randi_range(-1, 1)
+func idle() -> void:
+	animation_player.play('IDLE')
+	velocity.x = 0
 
 
 func change_direction() -> void:
+	scale.x *= -1
 	direction *= -1
+
+
+func _on_ledge_detection_component_is_on_ledge() -> void:
+	change_direction()
+
+
+func _on_patrol_timer_timeout() -> void:
+	is_idle = true
+	idle_timer.start()
+
+
+func _on_idle_timer_timeout() -> void:
+	is_idle = false
+	patrol_timer.start()
