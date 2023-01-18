@@ -6,7 +6,8 @@ extends Node
 var entity: Node2D
 
 func enter() -> void:
-	entity.animation_player.play(animation_name)
+	if animation_name:
+		entity.animation_player.play(animation_name)
 
 
 func exit() -> void:

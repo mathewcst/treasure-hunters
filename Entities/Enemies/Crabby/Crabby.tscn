@@ -252,7 +252,6 @@ _data = {
 script = ExtResource("1_gjdhr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
 frames = SubResource("SpriteFrames_dg3if")
 animation = &"IDLE"
 playing = true

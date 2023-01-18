@@ -13,10 +13,9 @@ extends CharacterBody2D
 @onready var hit_state: State = $StateMachine/Hit
 @onready var frozen_state: State = $StateMachine/Frozen
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-# TODO : move animations to animation_player
-@onready var animation_player = sprite
 @onready var state_label: Label = $Label
 
 
@@ -94,7 +93,7 @@ func animation() -> void:
 	
 	# Screen transition
 	if not can_move:
-		sprite.stop()
+		animation_player.stop()
 
 func make_invulnerable(yes: bool) -> void:
 	if yes:
